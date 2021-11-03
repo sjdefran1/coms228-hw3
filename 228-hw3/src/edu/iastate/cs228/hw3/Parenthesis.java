@@ -26,6 +26,8 @@ public class Parenthesis {
     public Parenthesis(File input)
     {
         this.input = input;
+
+        //create inputString
         createString();
     }
 
@@ -37,6 +39,7 @@ public class Parenthesis {
         {
             Scanner scan = new Scanner(input);
 
+            //while there is more input, if it is ( or ) add to inputString
             while(scan.hasNext())
             {
                 String curr = scan.next();
@@ -46,7 +49,7 @@ public class Parenthesis {
                 }
             }
 
-            System.out.println(inputString);
+            scan.close();
             
         } 
         catch (Exception e) 
@@ -59,7 +62,13 @@ public class Parenthesis {
 
     public boolean parenthMatch()
     {
+        //stack to hold ('s
         Stack<Character> stack = new Stack<Character>();
+
+        //incerment thoruhg inputString
+        //if opening bracket push to stack
+        //once found closing bracket pop and make sure there 
+        //is an opening to go with it
         for(int i = 0; i < inputString.length(); i++)
         {
             char curr = inputString.charAt(i);
@@ -70,13 +79,10 @@ public class Parenthesis {
             else if(curr == ')')
             {
                 try{
-                    char open = stack.pop();
-                    char close = inputString.charAt(i);
-                    if((open == '(' && close != ')'))
-                    {
-                        return false;
-                    }
+                    stack.pop();
                 }
+                //if exception is thrown are stack is empty
+                //therefore parenthesis are not valid
                 catch(Exception e)
                 {
                     System.out.println("Invalid parenthesis");
@@ -84,10 +90,8 @@ public class Parenthesis {
                 }
             }
         }
-        
-        if(stack.isEmpty())
-            return true;
-        else
-            return false;
+
+        //we got through the loop, parenthesis are valid
+        return true;
     }
 }
