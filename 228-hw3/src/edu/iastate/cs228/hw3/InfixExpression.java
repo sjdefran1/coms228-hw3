@@ -97,7 +97,7 @@ public class InfixExpression {
 	 * @param givenChar
 	 * @return
 	 */
-	public boolean isOperator(char givenChar)
+	public static boolean isOperator(char givenChar)
 	{
 		if(givenChar == '+' || givenChar == '-' || givenChar == '*' || givenChar == '/' || givenChar == '%')
 		{
