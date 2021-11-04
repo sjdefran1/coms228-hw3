@@ -20,21 +20,17 @@ public class Infix2Postfix
 
 	public static void main(String[] args) {
 		try {
-			//set up input.txt and create scanner
-			//File input = 
+
 			Scanner scan = new Scanner(input);
 			String infixString = createString(scan);
 			InfixExpression infix = new InfixExpression(infixString);
 			boolean valid = infix.isValid();
 			System.out.println(valid);
-			//create instance of Parenthesis, will find if there are valid parenth
-			//within in input.txt
-			//Parenthesis parenth = new Parenthesis(infixString);
-			//boolean validParenth = parenth.parenthMatch();
-			//System.out.println(validParenth);
+
 		} catch (Exception e) {
 
 			System.out.print("Invalid file probably");
+			
 		}
 	}
 	

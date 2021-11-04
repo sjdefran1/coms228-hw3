@@ -4,9 +4,8 @@ package edu.iastate.cs228.hw3;
  * @author Sam DeFrancisco
  */
 
- import java.io.File;
  import java.util.Stack;
- import java.util.Scanner;
+ 
 /**
  * This class acts as a parenthsis scanner matcher
  * finds if ()  within the file are valid

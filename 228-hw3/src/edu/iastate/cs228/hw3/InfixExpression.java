@@ -57,8 +57,18 @@ public class InfixExpression {
                     rank -= 1;
                 //rank bound check
                 if(rank > 1 || rank < 0)
+                    //what is curr if(operand) to many operands, 
+                    //if(operator) to many operators
                     return false;
             } 
+
+
+            //to many operators
+            if(rank != 1)
+            {
+                return false;
+                //throw new IllegalStateException("Too many operators")
+            }
 
             Parenthesis finalCheck = new Parenthesis(expression);
 		    return finalCheck.parenthMatch();
