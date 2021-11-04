@@ -9,7 +9,7 @@ package edu.iastate.cs228.hw3;
  import java.util.Scanner;
 /**
  * This class acts as a parenthsis scanner matcher
- * finds if () {} [] within the file are valid
+ * finds if ()  within the file are valid
  */
 public class Parenthesis {
     
@@ -93,5 +93,11 @@ public class Parenthesis {
 
         //we got through the loop, parenthesis are valid
         return true;
+    }
+
+
+    public static boolean isParenthesis(char givenChar)
+    {
+        return (givenChar == '(' || givenChar == ')');
     }
 }
