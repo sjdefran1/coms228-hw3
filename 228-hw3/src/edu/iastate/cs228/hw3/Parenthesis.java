@@ -16,14 +16,14 @@ public class Parenthesis {
     /**
      * file to be scanned
      */
-    File input; 
+    String input; 
 
     /**
      * String consiting of only the () {} [] within the file
      */
-    String inputString = "";
+    String parenthString = "";
 
-    public Parenthesis(File input)
+    public Parenthesis(String input)
     {
         this.input = input;
 
@@ -32,34 +32,25 @@ public class Parenthesis {
     }
 
 
+    /**
+     * 
+     */
     public void createString()
     {
-        
-        try 
-        {
-            Scanner scan = new Scanner(input);
-
-            //while there is more input, if it is ( or ) add to inputString
-            while(scan.hasNext())
+            for(int i = 0; i < input.length(); i++)
             {
-                String curr = scan.next();
-                if(curr.equals("(") || curr.equals(")"))
+                char curr = input.charAt(i);
+                if(curr == '(' || curr == '(')
                 {
-                    inputString += curr;
+                    parenthString += curr;
                 }
             }
-
-            scan.close();
-            
-        } 
-        catch (Exception e) 
-        {
-            System.out.print("exception in createString()");
-        }
-        
-
     }
 
+    /**
+     * 
+     * @return
+     */
     public boolean parenthMatch()
     {
         //stack to hold ('s
@@ -69,9 +60,9 @@ public class Parenthesis {
         //if opening bracket push to stack
         //once found closing bracket pop and make sure there 
         //is an opening to go with it
-        for(int i = 0; i < inputString.length(); i++)
+        for(int i = 0; i < parenthString.length(); i++)
         {
-            char curr = inputString.charAt(i);
+            char curr = parenthString.charAt(i);
             if(curr == '(')
             {
                 stack.push(curr);

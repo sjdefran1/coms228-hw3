@@ -19,55 +19,50 @@ public class InfixExpression {
     {
         expression = input;
 
-        isValid = isExpressionValid();
+        isValid = validCheck();
     }
 
-
-
-
-
-    public boolean isExpressionValid()
-    {
-        if(expression.length() == 0)
-        {
-            return true;
-        }
-        else
-        {
-            
-        }
-        
-        
-        return true;
-    }
 
     /**
 	 * 
 	 * @param infix
 	 * @return
 	 */
-	public boolean rankCheck()
+	public boolean validCheck()
 	{
-		int rank = 0;
-
-		for(int i = 0; i < expression.length(); i++)
-		{
-			char curr = expression.charAt(i);
-			
-			//letter or digit
-			if(isOperand(curr))
-			{
-
-			}
-
-			//parenthesis
-			if(Parenthesis.isParenthesis(curr))
-			{
-
-			}
-		}
 		
-		return true;
+        //empty file, technically valid
+        if(expression.length() == 0)
+        {
+            return true;
+        }
+        //non empty file
+        //check rank
+        //final check is that parenthesis are valid
+        else
+        {
+            int rank = 0;
+            for(int i = 0; i < expression.length(); i++)
+            {
+                char curr = expression.charAt(i);
+                
+                //letter or digit
+                if(isOperand(curr))
+                    rank += 1;
+                //parenthesis
+                else if(Parenthesis.isParenthesis(curr))
+                    rank += 0;
+                // +, -, *, /, %
+                else if(isOperator(curr) || isExoponent(curr))
+                    rank -= 1;
+                //rank bound check
+                if(rank > 1 || rank < 0)
+                    return false;
+            } 
+
+            Parenthesis finalCheck = new Parenthesis(expression);
+		    return finalCheck.parenthMatch();
+        }   
 	}
 
 
