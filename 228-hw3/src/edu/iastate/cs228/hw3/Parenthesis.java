@@ -40,7 +40,7 @@ public class Parenthesis {
             for(int i = 0; i < input.length(); i++)
             {
                 char curr = input.charAt(i);
-                if(curr == '(' || curr == '(')
+                if(curr == '(' || curr == ')')
                 {
                     parenthString += curr;
                 }
