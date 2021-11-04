@@ -36,40 +36,7 @@ public class Infix2Postfix
 			System.out.print("Invalid file probably");
 		}
 	}
-	/**
-	 * 
-	 * @param givenChar
-	 * @return
-	 */
-	public boolean isOperand(char givenChar)
-	{
-		return Character.isDigit(givenChar) || Character.isLetter(givenChar);
-	}
-
-	/**
-	 * 
-	 * @param givenChar
-	 * @return
-	 */
-	public boolean isOperator(char givenChar)
-	{
-		if(givenChar == '+' || givenChar == '-' || givenChar == '*' || givenChar == '/' || givenChar == '%')
-		{
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * 
-	 * @param givenChar
-	 * @return
-	 */
-	public boolean isExoponent(char givenChar)
-	{
-		return givenChar == '^';
-	}
-
+	
 	/**
 	 * 
 	 * @param scan
@@ -101,33 +68,5 @@ public class Infix2Postfix
 		return ret;
     }
 
-	/**
-	 * 
-	 * @param infix
-	 * @return
-	 */
-	public boolean rankCheck(String infix)
-	{
-		int rank = 0;
-
-		for(int i = 0; i < infix.length(); i++)
-		{
-			char curr = infix.charAt(i);
-			
-			//letter or digit
-			if(isOperand(curr))
-			{
-
-			}
-
-			//parenthesis
-			if(Parenthesis.isParenthesis(curr))
-			{
-
-			}
-		}
-		
-		return true;
-	}
 
 }
