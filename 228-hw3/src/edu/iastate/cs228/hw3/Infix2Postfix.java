@@ -32,8 +32,7 @@ public class Infix2Postfix
 
 		} catch (Exception e) {
 
-			System.out.print("Invalid file probably");
-			
+			System.out.print(e.getMessage());
 		}
 	}
 	

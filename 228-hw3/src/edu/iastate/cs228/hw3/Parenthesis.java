@@ -75,12 +75,19 @@ public class Parenthesis {
                 //therefore parenthesis are not valid
                 catch(Exception e)
                 {
+                    InfixExpression.error(2, "");
                     System.out.println("Invalid parenthesis");
                     return false; // uneven amount 
                 }
             }
         }
 
+
+        if(!stack.isEmpty())
+        {
+            InfixExpression.error(3, "");
+            return false; //to many ('s
+        }
         //we got through the loop, parenthesis are valid
         return true;
     }

@@ -47,9 +47,10 @@ public class InfixExpression {
         else
         {
             int rank = 0;
+            String curr = "";
             while(scan.hasNext())
             {
-                String curr = scan.next();
+                curr = scan.next();
 
                 //letter or digit
                 if(isOperand(curr) || isNegative(curr))
@@ -63,12 +64,21 @@ public class InfixExpression {
                 
                 //rank bound check
                 if(rank > 1 || rank < 0)
+                {
+                    isValid = false;
+                    if(rank > 1)
+                        error(0, curr); //to many operrand
+                    else //rank < 0
+                        error(1, curr); //to many operators
                     return false;
+                }
+                    
             }
 
             //to many operators
             if(rank != 1)
             {
+                error(1, curr); //to many operators
                 return false;
                 //throw new IllegalStateException("Too many operators")
             }
@@ -136,15 +146,23 @@ public class InfixExpression {
 	}
 
 
-    public static String getNegative(int i, String givenString)
+    public static void error(int caseNum, String op)
     {
-        while(givenString.charAt(i) != ' ')
-        {
 
+        switch(caseNum)
+        {
+            case 0:
+                throw new IllegalStateException("Error: to many operands" + "(" + op + ")");
+            case 1:
+                throw new IllegalStateException("Error: to many operators" + "(" + op + ")");
+            case 2:
+                throw new IllegalStateException("Error: no opening parenthesis detected");
+            case 3:
+                throw new IllegalStateException("Error: no closing parenthesis detected");
+            case 4: //needs implemented
+                throw new IllegalStateException("Error: no subexpression detected ()");
         }
-        
-        return "";
-    } 
+    }
 
 
     @Override
