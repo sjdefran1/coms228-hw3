@@ -64,38 +64,31 @@ public class Converter {
             //operator
             else if(InfixExpression.isOperator(curr))
             {
-                //if top of stack has higher prec then curr
-                // *  |+|
-                if(prec(curr, true))
+                boolean prec = prec(curr, true);
+            
+                //empty stack just push operator
+                //need to pop and give to postexpression
+                //then check against next top
+                if(!prec)
                 {
-                    //while top of stack has higher prec then curr
-                    while(prec(curr, true))
+                    while(!prec)
                     {
+                        if(stack.isEmpty())
+                        {
+                            break;
+                        }
                         postfixExpression += stack.pop();
+                        prec = prec(curr, true);
                     }
-                    //we are where we need to be in stack
                     stack.push(curr);
                 }
-                // + |*|
+                //currPrec > topPrec
                 else
                 {
-                    //postfixExpression += stack.pop();
-                   // stack.push(curr);
-                   //pop multi, push +
-                   //of stack is empty tho we  just push
-                   if(stack.isEmpty())
-                   {
-                       stack.push(curr);
-                   }
-                   else
-                   {
-                       postfixExpression += stack.pop();
-                       
-                       stack.push(curr);
-                   }
+                    stack.push(curr);
                 }
-                
-                
+               
+
                 
             }
 
@@ -155,8 +148,8 @@ public class Converter {
      * @param givenChar
      * @param fromInput
      * @return
-     * //return true if you should pop stack, and push givenChar
-     * //return false if you should just push givenChar 
+     * //return true if you should just push givenChar 
+     * //return false if you should pop stack, and push givenChar
      * 
      */
     public boolean prec(char givenChar, boolean fromInput)
@@ -172,19 +165,17 @@ public class Converter {
         int topPrec = getPrec(top, false);
         
         
-        if(topPrec < givenCharPrec)
-        {
-            return true;
-        }
-        if(topPrec > givenCharPrec)
+        if(givenCharPrec < topPrec)
         {
             return false;
         }
+        if(givenCharPrec > topPrec)
+        {
+            return true;
+        }
 
         //equal precedence, still pop top
-        return true;
-        
-        
+        return false;  
     }
 
 
@@ -228,8 +219,11 @@ public class Converter {
                     givenElementPrec = 5;
                 else
                     givenElementPrec = -1;
+                
+                break;
             case ')':
                 givenElementPrec = 5;
+                break;
         } 
 
         return givenElementPrec;
