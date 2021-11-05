@@ -90,7 +90,7 @@ public class InfixExpression {
 	 * @param givenChar
 	 * @return
 	 */
-	public boolean isOperand(String givenS)
+	public static boolean isOperand(String givenS)
 	{
         int i =  0;
 

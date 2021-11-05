@@ -9,7 +9,7 @@ import java.util.Stack;
  * @author Sam DeFrancisco
  */
 
-
+import java.util.Scanner;
 /**
  * 
  * |Operator| |Input precedence| |Stack precedence|  |Rank|
@@ -25,15 +25,17 @@ public class Converter {
 
     private String expression;
     private String postfixExpression;
+    Scanner scan;
 
-    private Stack<Character> stack;
+    private Stack<String> stack;
 
     public Converter(String input)
     {
         expression = input;
-        stack = new Stack<Character>();
+        stack = new Stack<String>();
         postfixExpression = "";
         converter(); //starts process of converting given infix to postfix
+        scan.close();
     }
 
 
@@ -54,30 +56,34 @@ public class Converter {
         {
             return;
         }
-        //go through entire infix expression
-        for(int i = 0; i < expression.length(); i++)
-        {
-            char curr = expression.charAt(i);
-            
-            //operand
-            if(Character.isDigit(curr) || Character.isLetter(curr))
-            {
-                //postfixExpression += curr;
-                handleOperand(curr);
-            }
-            //operator, current added "" to fix break make sure this doesnt end badly 
-            else if(InfixExpression.isOperator(curr + "") || InfixExpression.isExoponent(curr + ""))
-            {
-                handleOperator(curr);
-            }
 
-            //parenth
-            else if(Parenthesis.isParenthesis(curr + ""))
-            {   
-                handleParenth(curr);
-            }
-        }  
-        
+        //---------------------------New Stuff---------------
+        scan = new Scanner(expression);
+
+        while(scan.hasNext())
+        {
+            String curr = scan.next();
+
+             //operand
+             if(InfixExpression.isOperand(curr) || InfixExpression.isNegative(curr))
+             {
+                 //postfixExpression += curr;
+                 handleOperand(curr);
+             }
+             //operator, current added "" to fix break make sure this doesnt end badly 
+             else if(InfixExpression.isOperator(curr) || InfixExpression.isExoponent(curr))
+             {
+                 handleOperator(curr);
+             }
+ 
+             //parenth
+             else if(Parenthesis.isParenthesis(curr))
+             {   
+                 handleParenth(curr);
+             }
+        }
+
+
         //empty rest of operators to end of string
         while(!stack.isEmpty())
         {
@@ -102,7 +108,7 @@ public class Converter {
      * return false if you should pop stack, add pop() to postfix, then compare givenChar to next top
      * 
      */
-    public boolean prec(char givenChar, boolean fromInput)
+    public boolean prec(String givenS, boolean fromInput)
     {      
         if(stack.isEmpty())
         {
@@ -110,8 +116,8 @@ public class Converter {
         }
         
         //get givenChar's prec based on if it's from input
-        int givenCharPrec = getPrec(givenChar, fromInput);       
-        char top = stack.peek();
+        int givenCharPrec = getPrec(givenS, fromInput);       
+        String top = stack.peek();
         int topPrec = getPrec(top, false);
         
         
@@ -139,41 +145,41 @@ public class Converter {
      * @param fromInput
      * @return
      */
-    public int getPrec(int givenChar, boolean fromInput)
+    public int getPrec(String givenS, boolean fromInput)
     {
         int givenElementPrec = 0;
         
-        switch(givenChar)
+        switch(givenS)
         {
-            case '+':
+            case "+":
                 givenElementPrec = 1;
                 break;
-            case '-':
+            case "-":
                 givenElementPrec = 1;
                 break;
-            case '/':
+            case "/":
                 givenElementPrec = 2;
                 break;
-            case '%':
+            case "%":
                 givenElementPrec = 2;
                 break;
-            case '*':
+            case "*":
                 givenElementPrec = 2;
                 break;
-            case '^':
+            case "^":
                 if(fromInput)
                     givenElementPrec = 4;
                 else
                     givenElementPrec = 3;
                 break;
-            case '(':
+            case "(":
                 if(fromInput)
                     givenElementPrec = 5;
                 else
                     givenElementPrec = -1;
                 
                 break;
-            case ')':
+            case ")":
                 givenElementPrec = 5;
                 break;
         } 
@@ -186,7 +192,7 @@ public class Converter {
      * 
      * @param curr - refers to last read element of input infix expression
      */
-    private void handleOperand(char curr)
+    private void handleOperand(String curr)
     {
         postfixExpression += curr;
     }
@@ -201,7 +207,7 @@ public class Converter {
      * 
      * @param curr refers to last read element of input infix expression
      */
-    private void handleOperator(char curr)
+    private void handleOperator(String curr)
     {
         boolean prec = prec(curr, true);
             
@@ -239,10 +245,10 @@ public class Converter {
      * 
      * @param curr refers to last read element of input infix expression
      */
-    private void handleParenth(char curr)
+    private void handleParenth(String curr)
     {
         //opening parenth gets pushed onto stack
-        if(curr == '(')
+        if(curr.equals("("))
         {
             stack.push(curr);
         }
@@ -255,8 +261,8 @@ public class Converter {
             }
 
 
-            char popped = stack.pop();
-            while(popped != '(')
+            String popped = stack.pop();
+            while(!popped.equals("("))
             {
                 if(stack.isEmpty())
                 {
