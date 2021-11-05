@@ -136,7 +136,12 @@ public class Converter {
                 }
             }
 
-        }   
+        }  
+        
+        while(!stack.isEmpty())
+        {
+            postfixExpression += stack.pop();
+        }
     }
 
     /**
