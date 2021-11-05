@@ -77,7 +77,7 @@ public class InfixExpression {
             }
 
             //to many operators
-            if(rank != 1)
+            if(rank != 1 && onlyParenth())
             {
                 error(1, curr); //to many operators
             }
@@ -107,10 +107,25 @@ public class InfixExpression {
             }
             i++;
         }
-
-
 		return true;
 	}
+
+    /**
+     * 
+     * @return
+     */
+    public boolean onlyParenth()
+    {
+        for(int i = 0; i < expression.length(); i++)
+        {
+            String curr = expression.charAt(i) + "";
+            if(!Parenthesis.isParenthesis(curr))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 
     /**
      * determines if givenS is a negative operand

@@ -9,6 +9,7 @@ package edu.iastate.cs228.hw3;
 
 import java.util.Scanner;
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  * Main class
@@ -18,26 +19,52 @@ import java.io.File;
  */
 public class Infix2Postfix
 {
-
-	private static File input = new File("C:\\Users\\sjdef\\Desktop\\CODE\\COM228\\hw3\\coms228-hw3\\228-hw3\\src\\edu\\iastate\\cs228\\hw3\\input.txt");
-
 	public static void main(String[] args) {
-		try {
-			//scanner created for createString()
-			Scanner scan = new Scanner(input);
-			//store infixString
-			String infixString = createString(scan);
-			//validate infixString, will throw an exception if anything is wrong
-			InfixExpression infix = new InfixExpression(infixString);
+		
+		boolean running = true;
+		while(running)
+		{
+			try 
+			{
+				File input = new File("C:\\Users\\sjdef\\Desktop\\CODE\\COM228\\hw3\\coms228-hw3\\228-hw3\\src\\edu\\iastate\\cs228\\hw3\\input.txt");
+				//scanner created for createString()
+				Scanner scan = new Scanner(input);
+				
+				ArrayList<String> expressions = new ArrayList<String>();
+	
+				while(scan.hasNextLine())
+				{
+					expressions.add(scan.nextLine());
+				}
+			
+				scan.close();
 
-			//convert to postfix
-			Converter converter = new Converter(infix.toString());
-			System.out.println(converter.toString());
-
-		} catch (Exception e) { //catches error()'s exceptions
-
-			System.out.print(e.getMessage());
+				//cahnge i back
+				for(int i = 0; i < expressions.size(); i++)
+				{
+					try 
+					{
+						InfixExpression curInfix = new InfixExpression(expressions.get(i));
+						Converter curConverter = new Converter(curInfix.toString());
+						System.out.println(curConverter.toString());	
+					} 
+					catch (Exception e) 
+					{
+						System.out.println(e.getMessage());
+					}
+					
+				}
+				//gotten through all expressions, can break
+				running = false;
+	
+			} catch (Exception e) { //catches error()'s exceptions
+	
+				System.out.print("Invalid file");
+				running = false;
+			}
 		}
+		
+		
 	}
 	
 	/**
@@ -46,22 +73,20 @@ public class Infix2Postfix
 	 * @param scan
 	 * @return
 	 */
-	public static String createString(Scanner scan)
+	public static String createString(String input)
     {	
+		Scanner temp = new Scanner(input);
 		String ret = "";
         try 
         {
             //Scanner scan = new Scanner(input);
 
             //while there is more input, if it is ( or ) add to inputString
-            while(scan.hasNext())
+            while(temp.hasNext())
             {
-                String curr = scan.next();
+                String curr = temp.next();
 				ret += curr + " ";
-            }
-
-            scan.close();
-            
+            }            
         } 
         catch (Exception e) 
         {
@@ -70,6 +95,4 @@ public class Infix2Postfix
         
 		return ret;
     }
-
-
 }
