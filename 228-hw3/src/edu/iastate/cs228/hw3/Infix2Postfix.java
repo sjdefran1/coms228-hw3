@@ -27,20 +27,26 @@ public class Infix2Postfix
 		{
 			try 
 			{
-				File input = new File("C:\\Users\\sjdef\\Desktop\\CODE\\COM228\\hw3\\input.txt");
-				//scanner created for createString()
+				//find input.txt
+				String dir = System.getProperty("user.dir");
+				File input = new File(dir + "\\input.txt");
+
+				//create scanner to read all lines
+				//create arraylist to hold each line
 				Scanner scan = new Scanner(input);
-				
 				ArrayList<String> expressions = new ArrayList<String>();
-	
+				
+				//get each line and store within expressions
 				while(scan.hasNextLine())
 				{
 					expressions.add(scan.nextLine());
 				}
-			
-				scan.close();
+				
+				scan.close(); // close scan
 
-				//cahnge i back
+				//for reach  line convert to postfix
+				//replcace expression @ i with postfix expression
+				//catches exceptions thrown by error() from InfixExpression.java
 				for(int i = 0; i < expressions.size(); i++)
 				{
 					try 
@@ -54,9 +60,9 @@ public class Infix2Postfix
 					{
 						System.out.println(e.getMessage());
 					}
-					
 				}
 
+				//create ouput file
 				createOutput(expressions);
 				//gotten through all expressions, can break
 				running = false;
@@ -72,8 +78,8 @@ public class Infix2Postfix
 	}
 	
 	/**
-	 * 
-	 * @param list
+	 * Creates output file in same working dir as input.txt
+	 * @param list - each postfix expression to be printed
 	 */
 	public static void createOutput(ArrayList<String> list)
 	{
