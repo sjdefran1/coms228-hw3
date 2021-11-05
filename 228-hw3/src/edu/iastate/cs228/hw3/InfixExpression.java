@@ -116,4 +116,11 @@ public class InfixExpression {
 		return givenChar == '^';
 	}
 
+
+    @Override
+    public String toString()
+    {
+        return expression;
+    }
+
 }

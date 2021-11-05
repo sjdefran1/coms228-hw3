@@ -27,6 +27,9 @@ public class Infix2Postfix
 			boolean valid = infix.isValid();
 			System.out.println(valid);
 
+			Converter converter = new Converter(infix.toString());
+			System.out.println(converter.toString());
+
 		} catch (Exception e) {
 
 			System.out.print("Invalid file probably");

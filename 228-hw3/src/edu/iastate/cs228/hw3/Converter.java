@@ -3,6 +3,8 @@ package edu.iastate.cs228.hw3;
 
 import java.util.Stack;
 
+import javax.swing.text.Position;
+
 
 /**
  * @author Sam DeFrancisco
@@ -30,6 +32,9 @@ public class Converter {
     public Converter(String input)
     {
         expression = input;
+        stack = new Stack<Character>();
+        postfixExpression = "";
+        converter();
     }
 
 
@@ -39,11 +44,19 @@ public class Converter {
      */
     public void converter()
     {
+        
+        if(expression.length() == 0)
+        {
+            return;
+        }
+
+
+        //go through entire infix expression
         for(int i = 0; i < expression.length(); i++)
         {
             char curr = expression.charAt(i);
-            //operand
             
+            //operand
             if(Character.isDigit(curr) || Character.isLetter(curr))
             {
                 postfixExpression += curr;
@@ -51,20 +64,80 @@ public class Converter {
             //operator
             else if(InfixExpression.isOperator(curr))
             {
-                while(prec(curr, true))
+                //if top of stack has higher prec then curr
+                // *  |+|
+                if(prec(curr, true))
                 {
-                    postfixExpression += stack.pop();
+                    //while top of stack has higher prec then curr
+                    while(prec(curr, true))
+                    {
+                        postfixExpression += stack.pop();
+                    }
+                    //we are where we need to be in stack
+                    stack.push(curr);
+                }
+                // + |*|
+                else
+                {
+                    //postfixExpression += stack.pop();
+                   // stack.push(curr);
+                   //pop multi, push +
+                   //of stack is empty tho we  just push
+                   if(stack.isEmpty())
+                   {
+                       stack.push(curr);
+                   }
+                   else
+                   {
+                       postfixExpression += stack.pop();
+                       
+                       stack.push(curr);
+                   }
+                }
+                
+                
+                
+            }
+
+            //parenth
+            else if(Parenthesis.isParenthesis(curr))
+            {   
+                //opening parenth gets pushed onto stack
+                if(curr == '(')
+                {
+                    stack.push(curr);
+                }
+                //closing parenth, pop's until finds opening parenth
+                else
+                {   
+                    if(stack.isEmpty())
+                    {
+                        //missing opening parenth, shouldve been caught by InfixExpression
+                        //we shall see
+                        break;
+                    }
+
+                    char popped = stack.pop();
+                    while(popped != '(')
+                    {
+                        if(stack.isEmpty())
+                        {
+                        //missing opening parenth, shouldve been caught by InfixExpression
+                        //we shall see
+                        break;
+                        }
+                        else
+                        {
+                            postfixExpression += popped;
+                            popped = stack.pop();
+                        }
+                    }
+                    //found opening parenth, go to next iteration to discard of both w/out adding
                 }
             }
 
-        }
-        
-        
-        
+        }   
     }
-
-
-
 
     /**
      * Refer to table above class definiton, this method will return
@@ -96,11 +169,11 @@ public class Converter {
         
         if(topPrec < givenCharPrec)
         {
-            return false;
+            return true;
         }
         if(topPrec > givenCharPrec)
         {
-            return true;
+            return false;
         }
 
         //equal precedence, still pop top
@@ -155,6 +228,13 @@ public class Converter {
         } 
 
         return givenElementPrec;
+    }
+
+
+    @Override
+    public String toString()
+    {
+        return postfixExpression;
     }
 
     
