@@ -111,7 +111,7 @@ public class InfixExpression {
 	 * @param givenChar
 	 * @return
 	 */
-	public boolean isExoponent(char givenChar)
+	public static boolean isExoponent(char givenChar)
 	{
 		return givenChar == '^';
 	}

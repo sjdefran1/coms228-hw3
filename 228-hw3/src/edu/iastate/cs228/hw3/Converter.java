@@ -62,7 +62,7 @@ public class Converter {
                 postfixExpression += curr;
             }
             //operator
-            else if(InfixExpression.isOperator(curr))
+            else if(InfixExpression.isOperator(curr) || InfixExpression.isExoponent(curr))
             {
                 boolean prec = prec(curr, true);
             
