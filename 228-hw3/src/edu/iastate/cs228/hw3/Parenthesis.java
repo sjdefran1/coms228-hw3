@@ -22,6 +22,11 @@ public class Parenthesis {
      */
     String parenthString = "";
 
+
+    /**
+     * 
+     * @param input - infix expression for () to be evaulated
+     */
     public Parenthesis(String input)
     {
         this.input = input;
@@ -32,7 +37,7 @@ public class Parenthesis {
 
 
     /**
-     * 
+     * Creates String of only ()'s gets rid of rest of noise
      */
     public void createString()
     {
@@ -47,8 +52,9 @@ public class Parenthesis {
     }
 
     /**
-     * 
-     * @return
+     * Validates ()'s within infixExpression 
+     * @return true if parenthesis are valid
+     *         false if parenthis are invalid   
      */
     public boolean parenthMatch()
     {
@@ -92,7 +98,11 @@ public class Parenthesis {
         return true;
     }
 
-
+    /**
+     * determines if givenS is a opening or closing parenthesis
+     * @param givenS
+     * @return
+     */
     public static boolean isParenthesis(String givenS)
     {
         return (givenS.equals("(") || givenS.equals(")"));

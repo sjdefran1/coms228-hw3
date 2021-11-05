@@ -18,17 +18,41 @@ import java.util.Scanner;
  *   ^               4                    3            -1
  *   (               5                   -1             0
  *   )               0                    0             0
+ * 
+ * 
+ * This class takes in the infixExpression from input.txt and converts it to postFix
  */
-
 public class Converter {
 
 
+    /**
+     * Stores infix expression from input.txt
+     */
     private String expression;
+
+    /**
+     * used to store created postfixExpression
+     */
     private String postfixExpression;
+
+    /**
+     * used to scan expression throughout class
+     * initialized within converter()
+     * closed after call to converter() within constructor
+     */
     Scanner scan;
 
+    /**
+     * Stack used for conversion to postFix, stores operators in correct
+     * precedence order
+     */
     private Stack<String> stack;
 
+
+    /**
+     * Constructor
+     * @param input - infix expression to convert to postfix
+     */
     public Converter(String input)
     {
         expression = input;
@@ -51,15 +75,14 @@ public class Converter {
      */
     public void converter()
     {
+        scan = new Scanner(expression);
         
+        //empty String has no work to be done
         if(expression.length() == 0)
         {
             return;
         }
-
-        //---------------------------New Stuff---------------
-        scan = new Scanner(expression);
-
+        
         while(scan.hasNext())
         {
             String curr = scan.next();

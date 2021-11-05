@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 /**
  * Stores a infixExpression, also finds out if this expression follows rules and is valid
+ * contains plenty of helper methods that determine what a givenString is
  */
 public class InfixExpression {
 
@@ -26,7 +27,11 @@ public class InfixExpression {
 
 
     /**
-	 * 
+	 * Basically calculates rank
+     * if rank isn't valid throws calls error() accordingly
+     * if rank is valid, checks parentheses
+     * if parenthesis, are valid execution continues
+     * if parenth aren't valid Parenthesis.java calls error() accordingly
 	 * @param infix
 	 * @return
 	 */
@@ -83,7 +88,7 @@ public class InfixExpression {
 	}
 
    /**
-	 * 
+	 * determines if givenS is a operand
 	 * @param givenChar
 	 * @return
 	 */
@@ -107,13 +112,19 @@ public class InfixExpression {
 		return true;
 	}
 
+    /**
+     * determines if givenS is a negative operand
+     * @param givenS
+     * @return
+     */
     public static boolean isNegative(String givenS)
     {
         return givenS.charAt(0) == '-' && givenS.length() > 1;
     }
 
 	/**
-	 * 
+	 * determines if givenS is a operator
+     * 
 	 * @param givenChar
 	 * @return
 	 */
@@ -123,7 +134,8 @@ public class InfixExpression {
 	}
 
 	/**
-	 * 
+	 * determines if givenS is a exponent sign
+     * 
 	 * @param givenChar
 	 * @return
 	 */
@@ -133,6 +145,19 @@ public class InfixExpression {
 	}
 
 
+    /**
+     * error handling, throws IllegalStateException according to caseNum
+     * 
+     * @param caseNum - type of error occuring for switch statement
+     *                  0 for to many operands
+     *                  1 for to many operators
+     *                  2 for no mathcing opening parenth
+     *                  3 for no matching closing parenth
+     *                  4 for no subexpression inside parenth
+     * @param op - op that caused issue
+     *             if operand || operator op will contain something
+     *             if parenth or subexpression issue op will be empty
+     */
     public static void error(int caseNum, String op)
     {
 
@@ -151,7 +176,9 @@ public class InfixExpression {
         }
     }
 
-
+    /**
+     * returns infixExpression that came from input.txt
+     */
     @Override
     public String toString()
     {
