@@ -86,8 +86,8 @@ public class Parenthesis {
     }
 
 
-    public static boolean isParenthesis(char givenChar)
+    public static boolean isParenthesis(String givenS)
     {
-        return (givenChar == '(' || givenChar == ')');
+        return (givenS.equals("(") || givenS.equals(")"));
     }
 }

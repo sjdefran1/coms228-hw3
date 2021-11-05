@@ -3,7 +3,6 @@ package edu.iastate.cs228.hw3;
 
 import java.util.Stack;
 
-import javax.swing.text.Position;
 
 
 /**
@@ -66,14 +65,14 @@ public class Converter {
                 //postfixExpression += curr;
                 handleOperand(curr);
             }
-            //operator
-            else if(InfixExpression.isOperator(curr) || InfixExpression.isExoponent(curr))
+            //operator, current added "" to fix break make sure this doesnt end badly 
+            else if(InfixExpression.isOperator(curr + "") || InfixExpression.isExoponent(curr + ""))
             {
                 handleOperator(curr);
             }
 
             //parenth
-            else if(Parenthesis.isParenthesis(curr))
+            else if(Parenthesis.isParenthesis(curr + ""))
             {   
                 handleParenth(curr);
             }

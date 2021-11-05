@@ -45,7 +45,6 @@ public class Infix2Postfix
 	public static String createString(Scanner scan)
     {	
 		String ret = "";
-
         try 
         {
             //Scanner scan = new Scanner(input);
@@ -54,7 +53,7 @@ public class Infix2Postfix
             while(scan.hasNext())
             {
                 String curr = scan.next();
-				ret += curr;
+				ret += curr + " ";
             }
 
             scan.close();
