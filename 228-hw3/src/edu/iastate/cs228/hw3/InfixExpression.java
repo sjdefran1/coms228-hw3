@@ -15,14 +15,12 @@ public class InfixExpression {
 
     private String expression;
 
-    private boolean isValid;
-
     private Scanner scan;
 
     public InfixExpression(String input)
     {
         expression = input;
-        isValid = validCheck();
+        validCheck();
         scan.close();
     }
 
@@ -32,14 +30,14 @@ public class InfixExpression {
 	 * @param infix
 	 * @return
 	 */
-	public boolean validCheck()
+	public void validCheck()
 	{
 		scan = new Scanner(expression);
 
         //empty file, technically valid
         if(expression.length() == 0)
         {
-            return true;
+            return;
         }
         //non empty file
         //check rank
@@ -65,12 +63,10 @@ public class InfixExpression {
                 //rank bound check
                 if(rank > 1 || rank < 0)
                 {
-                    isValid = false;
                     if(rank > 1)
                         error(0, curr); //to many operrand
                     else //rank < 0
                         error(1, curr); //to many operators
-                    return false;
                 }
                     
             }
@@ -79,23 +75,14 @@ public class InfixExpression {
             if(rank != 1)
             {
                 error(1, curr); //to many operators
-                return false;
-                //throw new IllegalStateException("Too many operators")
             }
 
             Parenthesis finalCheck = new Parenthesis(expression);
-		    return finalCheck.parenthMatch();    
+		    finalCheck.parenthMatch();    
         }   
 	}
 
-
-    public boolean isValid()
-    {
-        return isValid;
-    }
-
-
-    /**
+   /**
 	 * 
 	 * @param givenChar
 	 * @return

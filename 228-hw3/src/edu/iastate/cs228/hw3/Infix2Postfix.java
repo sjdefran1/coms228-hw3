@@ -24,8 +24,6 @@ public class Infix2Postfix
 			Scanner scan = new Scanner(input);
 			String infixString = createString(scan);
 			InfixExpression infix = new InfixExpression(infixString);
-			boolean valid = infix.isValid();
-			System.out.println(valid);
 
 			Converter converter = new Converter(infix.toString());
 			System.out.println(converter.toString());
