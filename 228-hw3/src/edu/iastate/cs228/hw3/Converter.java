@@ -82,7 +82,7 @@ public class Converter {
         {
             return;
         }
-        
+
         while(scan.hasNext())
         {
             String curr = scan.next();
@@ -110,7 +110,7 @@ public class Converter {
         //empty rest of operators to end of string
         while(!stack.isEmpty())
         {
-            postfixExpression += stack.pop();
+            postfixExpression += stack.pop() + " ";
         }
     }
 
@@ -217,7 +217,7 @@ public class Converter {
      */
     private void handleOperand(String curr)
     {
-        postfixExpression += curr;
+        postfixExpression += curr + " ";
     }
 
 
@@ -245,7 +245,7 @@ public class Converter {
                         {
                             break;
                         }
-                        postfixExpression += stack.pop();
+                        postfixExpression += stack.pop() + " ";
                         prec = prec(curr, true);
                     }
                     stack.push(curr);
@@ -300,7 +300,7 @@ public class Converter {
                 }
                 else
                 {
-                    postfixExpression += popped;
+                    postfixExpression += popped + " ";
                     popped = stack.pop();
                 }
             }

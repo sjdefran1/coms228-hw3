@@ -58,6 +58,7 @@ public class Infix2Postfix
 					} 
 					catch (Exception e) 
 					{
+						expressions.set(i, e.getMessage());
 						System.out.println(e.getMessage());
 					}
 				}
