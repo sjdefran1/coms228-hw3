@@ -309,6 +309,9 @@ public class Converter {
         }
     }
 
+    /**
+     * Removes space from end of postFixExpression to form to specifications
+     */
     public void formatPostifx()
     {
         if(postfixExpression.length() <= 1)
