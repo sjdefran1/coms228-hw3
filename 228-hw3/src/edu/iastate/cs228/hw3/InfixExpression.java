@@ -51,16 +51,22 @@ public class InfixExpression {
         {
             int rank = 0;
             String curr = "";
+            String prev = ""; //used to catch ERROR 4, no subexpression
             while(scan.hasNext())
             {
                 curr = scan.next();
-
                 //letter or digit
                 if(isOperand(curr) || isNegative(curr))
                     rank += 1;
                 //parenthesis
-                else if(Parenthesis.isParenthesis(curr))
-                    rank += 0;
+                else if(curr.equals(")"))
+                {
+                    if(prev.equals("("))
+                    {
+                        //no subexpression, our last element was a opening parenth
+                        InfixExpression.error(4, "");
+                    }
+                } 
                 // +, -, *, /, %
                 else if(isOperator(curr) || isExoponent(curr))
                     rank -= 1;
@@ -73,6 +79,8 @@ public class InfixExpression {
                     else //rank < 0
                         error(1, curr); //to many operators
                 }
+                //set prev w curr for next iteration
+                prev = curr;
                     
             }
 
@@ -82,6 +90,7 @@ public class InfixExpression {
                 error(1, curr); //to many operators
             }
 
+            
             Parenthesis finalCheck = new Parenthesis(expression);
 		    finalCheck.parenthMatch();    
         }   
@@ -111,7 +120,7 @@ public class InfixExpression {
 	}
 
     /**
-     * 
+     * returns false if expression is made up of only parenthesis
      * @return
      */
     public boolean onlyParenth()

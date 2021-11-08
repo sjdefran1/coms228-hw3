@@ -82,7 +82,7 @@ public class Parenthesis {
                 catch(Exception e)
                 {
                     InfixExpression.error(2, "");
-                    System.out.println("Invalid parenthesis");
+                    //System.out.println("Invalid parenthesis");
                     return false; // uneven amount 
                 }
             }

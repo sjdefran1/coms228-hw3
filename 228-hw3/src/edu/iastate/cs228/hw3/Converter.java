@@ -283,15 +283,8 @@ public class Converter {
             {
                 return;
             }
-
-
+            
             String popped = stack.pop();
-            if(popped.equals("("))
-            {
-                //no subexpression, top of stack was opening parenth
-                InfixExpression.error(4, "");
-            }
-
             while(!popped.equals("("))
             {
                 if(stack.isEmpty())
