@@ -59,6 +59,7 @@ public class Converter {
         stack = new Stack<String>();
         postfixExpression = "";
         converter(); //starts process of converting given infix to postfix
+        formatPostifx();
         scan.close();
     }
 
@@ -305,6 +306,18 @@ public class Converter {
                 }
             }
             //found opening parenth, go to next iteration to discard of both w/out adding
+        }
+    }
+
+    public void formatPostifx()
+    {
+        if(postfixExpression.length() <= 1)
+        {
+            return;
+        }  
+        else
+        {
+            postfixExpression = postfixExpression.substring(0, postfixExpression.length()-1);
         }
     }
 

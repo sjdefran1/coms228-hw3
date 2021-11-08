@@ -54,12 +54,12 @@ public class Infix2Postfix
 						InfixExpression curInfix = new InfixExpression(expressions.get(i));
 						Converter curConverter = new Converter(curInfix.toString());
 						expressions.set(i, curConverter.toString());
-						System.out.println(curConverter.toString());	
+						//System.out.println(curConverter.toString());	
 					} 
 					catch (Exception e) 
 					{
 						expressions.set(i, e.getMessage());
-						System.out.println(e.getMessage());
+						//System.out.println(e.getMessage());
 					}
 				}
 

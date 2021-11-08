@@ -186,7 +186,7 @@ public class InfixExpression {
                 throw new IllegalStateException("Error: no opening parenthesis detected");
             case 3:
                 throw new IllegalStateException("Error: no closing parenthesis detected");
-            case 4: //needs implemented
+            case 4:
                 throw new IllegalStateException("Error: no subexpression detected ()");
         }
     }
