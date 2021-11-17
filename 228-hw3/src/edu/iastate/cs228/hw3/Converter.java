@@ -40,7 +40,7 @@ public class Converter {
      * initialized within converter()
      * closed after call to converter() within constructor
      */
-    Scanner scan;
+    private Scanner scan;
 
     /**
      * Stack used for conversion to postFix, stores operators in correct
